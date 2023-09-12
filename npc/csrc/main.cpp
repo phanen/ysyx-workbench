@@ -27,7 +27,7 @@ int main() {
 
   reset(10);
 
-  for (size_t i = 0; i < 10; ++i) {
+  for (size_t i = 0; i < 10000; ++i) {
     nvboard_update();
     single_cycle();
   }
