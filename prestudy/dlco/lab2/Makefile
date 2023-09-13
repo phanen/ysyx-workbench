@@ -45,8 +45,7 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 all: default
 
 run: $(BIN)
-	$(call git_commit, "run digital curcuit lab1") # DO NOT REMOVE THIS LINE!!!
-	# @$^
+	@$^
 
 wave: run
 	$(WAVEVIEW) $(WAVE)
