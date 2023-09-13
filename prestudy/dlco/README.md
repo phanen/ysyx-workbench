@@ -55,9 +55,9 @@ for 循环的 condition 条件表达式必须为常数, 不能是可改变的量
 ![img: seven-led](https://i.imgur.com/iV6JCZq.png)
 
 
-了解casex和casez语句的使用, 思考如何用casex语句来完成优先编码器的设计? 
-- 
-
+了解 casex 和 casez 语句的使用, 思考如何用 casex 语句来完成优先编码器的设计
+> 但是 casex、casez 一般是不可综合的，多用于仿真..
+<https://www.runoob.com/w3cnote/verilog-case.html>
 
 ### 实现一个 8-3 优先编码器并在七段数码管上显示
 
