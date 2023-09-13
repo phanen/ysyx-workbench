@@ -12,7 +12,7 @@ FPGA_syn_time + FPGA_impl_time + FPGA_run_time < verilator_compile_time + verila
 ```
 
 
-## lab1
+## lab1 选择器
 
 建模方式
 - 数据流建模: 画电路
@@ -33,7 +33,7 @@ FPGA_syn_time + FPGA_impl_time + FPGA_run_time < verilator_compile_time + verila
 ### 实现一个简单的二位四选一选择器
 
 调用+接线
-![img:lab1](https://i.imgur.com/HnkETMI.png)
+![img: lab1](https://i.imgur.com/HnkETMI.png)
 
 就是死循环 eval 给人感觉不太好, verilator 并不会自动检测值的变化, `nvboard_update` 也不会自己阻塞住
 ```cc
@@ -43,5 +43,29 @@ FPGA_syn_time + FPGA_impl_time + FPGA_run_time < verilator_compile_time + verila
     nvboard_update();
   }
 ```
+
+## lab2 译码器和编码器
+
+normally
+- decoder: 2^n -> n
+- encoder: n -> 2^n
+
+for 循环的 condition 条件表达式必须为常数, 不能是可改变的量
+
+![img: seven-led](https://i.imgur.com/iV6JCZq.png)
+
+
+了解casex和casez语句的使用, 思考如何用casex语句来完成优先编码器的设计? 
+- 
+
+
+### 实现一个 8-3 优先编码器并在七段数码管上显示
+
+数码管是低电平的
+
+
+
+## Easter eggs
+
 
 
