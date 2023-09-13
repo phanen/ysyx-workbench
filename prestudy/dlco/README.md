@@ -56,16 +56,40 @@ for 循环的 condition 条件表达式必须为常数, 不能是可改变的量
 
 
 了解 casex 和 casez 语句的使用, 思考如何用 casex 语句来完成优先编码器的设计
-> 但是 casex、casez 一般是不可综合的，多用于仿真..
+> 但是 casex, casez 一般是不可综合的, 多用于仿真..
 <https://www.runoob.com/w3cnote/verilog-case.html>
 
 ### 实现一个 8-3 优先编码器并在七段数码管上显示
 
 数码管是低电平的
 
+开始还想为啥要有个判断是否有输入, 原来是给 bcdseg 用的
+```verilog
+assign seg_in = enc_ok ? {1'b0, enc_out} : 8;
+```
+![img: lab2](https://i.imgur.com/AKR4icG.png)
 
+
+## lab
 
 ## Easter eggs
 
+lab1
+```
+To be, or not to be, that is the question. 
+—《哈姆雷特》, 莎士比亚
+```
 
+lab2
+```
+伊吉斯将另一面白色的帆交给领航, 特别交代他在回航的时候, 如果帖修斯平安归来, 就将这面船帆升起来; 要是事与愿违就用黑色的船帆, 等于是悬挂出不幸的信号.
+—《希腊罗马名人传》, 普鲁塔克
+```
 
+lab3
+```
+"Six by nine. Forty-two."
+"That’s it. That’s all there is."
+"I always thought something was fundamentally wrong with the universe."
+— "The Restaurant at the End of the Universe",  Douglas Adams
+```
