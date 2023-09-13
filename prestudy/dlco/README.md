@@ -70,13 +70,93 @@ assign seg_in = enc_ok ? {1'b0, enc_out} : 8;
 ![img: lab2](https://i.imgur.com/AKR4icG.png)
 
 
-## lab
+## lab3 加法器和 ALU
+
+
+review of coding
+- 原码: 用最高位表示符号位, 其他位存放该数的二进制的绝对值
+  - 算术麻烦, 加减都需要讨论符号, +0 -0 问题
+- 反码: 正数的反码还是等于原码; 负数的反码就是它的原码除符号位外, 按位取反
+  - +0 -0 问题, 负数加法问题
+- 补码: 正数的补码等于它的原码; 负数的补码等于反码+1 (or: raw-2^n)
+  - `0~2^{n-1}-1`, `-2^n~-1`
+  - ~b + 1 =? ~(b_b + 1) + 1
+  - 原码 + 反码 + 1 -> 0
+
+adder
+```verilog
+input  [n-1:0]  in_x, in_y;
+output [n-1:0]  out_s;
+
+assign {out_c, out_s} = in_x + in_y;
+assign overflow = (in_x[n-1] == in_y[n-1]) && (out_s[n-1] != in_x[n-1]);
+```
+
+
+full adder (unsigned + signed)
+- 由于补码的优越性, signed adder 和 unsinged adder 可以用同一个结构实现
+```verilog
+module adder_4bit(
+  output [3:0] o_s,
+  output o_c,
+  output overflow,
+  input [3:0] i_a,
+  input [3:0] i_b,
+  input i_c
+);
+
+wire c1, c2, s1;
+assign {c1, s1} = i_a + i_c;
+assign {c2, o_s} = s1 + i_b;
+assign out_c = c1 | c2;
+assign overflow = (i_a[3] == i_b[3]) && (o_s[3] != i_a[3]);
+endmodule
+```
+
+suber
+- 再次由于补码的优越性, suber 用 adder 实现
+```verilog
+// A - B = A + (-B) = A + ~B + 1
+module suber_4bit (
+  output [3:0] o_s,
+  output o_c,
+  input [3:0] i_a,
+  input [3:0] b,
+  input i_c
+);
+
+endmodule
+```
+
+carry flag
+- <https://en.wikipedia.org/wiki/Carry_flag>
+- 进位后,
+-
+
+e.g. 11111111 + 11111111 results in 111111110
+- Carry_Flag set
+- Sign_Flag set
+- Overflow_Flag clear
+
+
+suber
+```verilog
+assign t_add_Cin =( {n{Cin}}^B )+ Cin;
+assign { Carry, Result } = A + t_add_Cin;
+assign Overflow = (A[n-1] == t_add_Cin[n-1]) && (Result [n-1] != A[n-1]);
+```
+
+
+
+
+
+
 
 ## Easter eggs
 
 lab1
 ```
-To be, or not to be, that is the question. 
+To be, or not to be, that is the question.
 —《哈姆雷特》, 莎士比亚
 ```
 

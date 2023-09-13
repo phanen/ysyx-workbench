@@ -1,0 +1,10 @@
+top=top
+
+i_op (SW10, SW9, SW8)
+i_a (SW7, SW6, SW5, SW4)
+i_b (SW3, SW2, SW1, SW0)
+
+o_zf LD6
+o_of LD5
+o_cf LD4
+out (LD3, LD2, LD1, LD0)
