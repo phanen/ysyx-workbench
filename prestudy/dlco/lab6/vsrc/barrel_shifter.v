@@ -1,18 +1,25 @@
 /* verilator lint_off PINMISSING */
 
-module barrel_shifter(
-  output [7:0] o,
-  input [7:0] i,
-  input [2:0] shamt,
-  input lr,
-  input al
+module barrel_shifter (
+    output [7:0] o,
+    input [7:0] i,
+    input [2:0] shamt,
+    input lr,
+    input al
 );
 
-// binary: 8 = 4*b2 + 2*b1 + 1*b0
-wire pref;
-wire [7:0] x, y;
+  // binary: 8 = 4*b2 + 2*b1 + 1*b0
+  wire pref;
+  wire [7:0] x, y;
 
-mux21 m2(.y(pref), .sel(al), .x0(0), .x1(i[7]));
+  mux21 m2 (
+      .y  (pref),
+      .sel(al),
+      .x0 (0),
+      .x1 (i[7])
+  );
+
+  // verilog_format: off
 
 // 1bit
 mux41 m410(.y(x[0]), .sel({lr,shamt[0]}), .x0(i[0]), .x1(i[1]), .x2(i[0]), .x3(0));
@@ -44,41 +51,41 @@ mux41 m435(.y(o[5]), .sel({lr,shamt[2]}), .x0(y[5]), .x1(pref), .x2(y[5]), .x3(y
 mux41 m436(.y(o[6]), .sel({lr,shamt[2]}), .x0(y[6]), .x1(pref), .x2(y[6]), .x3(y[2]));
 mux41 m437(.y(o[7]), .sel({lr,shamt[2]}), .x0(y[7]), .x1(pref), .x2(y[7]), .x3(y[3]));
 
+// verilog_format: on
 endmodule
 
 module mux41 (
-  output reg y,
-  input [1:0] sel,
-  input x0,
-  input x1,
-  input x2,
-  input x3
+    output reg y,
+    input [1:0] sel,
+    input x0,
+    input x1,
+    input x2,
+    input x3
 );
 
-always@(*) begin
-  case (sel)
-     2'b00: y = x0;
-     2'b01: y = x1;
-     2'b10: y = x2;
-     2'b11: y = x3;
-  endcase
-end
+  always @(*) begin
+    case (sel)
+      2'b00: y = x0;
+      2'b01: y = x1;
+      2'b10: y = x2;
+      2'b11: y = x3;
+    endcase
+  end
 
 endmodule
 
 module mux21 (
-  output reg y,
-  input sel,
-  input x0,
-  input x1
+    output reg y,
+    input sel,
+    input x0,
+    input x1
 );
 
-always@(*) begin
-  case (sel)
-     1'b0: y = x0;
-     1'b1: y = x1;
-  endcase
-end
+  always @(*) begin
+    case (sel)
+      1'b0: y = x0;
+      1'b1: y = x1;
+    endcase
+  end
 
 endmodule
-

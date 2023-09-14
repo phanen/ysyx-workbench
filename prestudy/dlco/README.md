@@ -210,6 +210,84 @@ endmodule
 
 ![img:lfsr](https://i.imgur.com/PJ8cDAr.png)
 
+## lab7 状态机及键盘输入
+
+FSM
+- Moore: 输出信号只与有限状态机的当前状态有关, 输入信号的当前值只会影响到状态机的次态 (输入对输出的影响要到下一个时钟周期才能反映出来)
+- Mealy: 输出不仅仅与状态机的当前状态有关, 而且与输入信号的当前值也有关 (输入信号的噪声可能影响到输出的信号)
+
+简单状态机, 检测连续四个相同 bit
+```verilog
+module FSM_bin
+(
+  input clk, in, reset,
+  output reg out
+);
+
+parameter[3:0] S0 = 0, S1 = 1, S2 = 2, S3 = 3, S4 = 4, S5 = 5, S6 = 6, S7 = 7, S8 = 8;
+
+wire [3:0] state_next, state_cur;
+wire state_wen;
+
+SimReg#(4,0) state(clk, reset, state_next, state_cur, state_wen);
+
+assign state_wen = 1;
+
+MuxKeyWithDefault#(9, 4, 1) outMux(.out(out), .key(state_cur), .default_out(0), .lut({
+  S0, 1'b0,
+  S1, 1'b0,
+  S2, 1'b0,
+  S3, 1'b0,
+  S4, 1'b1,
+  S5, 1'b0,
+  S6, 1'b0,
+  S7, 1'b0,
+  S8, 1'b1
+}));
+
+MuxKeyWithDefault#(9, 4, 4) stateMux(.out(state_next), .key(state_cur), .default_out(S0), .lut({
+  S0, in ? S5 : S1,
+  S1, in ? S5 : S2,
+  S2, in ? S5 : S3,
+  S3, in ? S5 : S4,
+  S4, in ? S5 : S4,
+  S5, in ? S6 : S1,
+  S6, in ? S7 : S1,
+  S7, in ? S8 : S1,
+  S8, in ? S8 : S1
+}));
+
+endmodule
+```
+
+FSM encoding
+- ordered binary
+- one-hot (FPGA)
+- gray code (CPLD)
+
+
+### 实现单个按键的ASCII码显示
+
+七段数码管低两位显示当前按键的键码, 中间两位显示对应的ASCII码
+
+(转换可以考虑自行设计一个ROM并初始化). 只需完成字符和数字键的输入, 不需要实现组合键和小键盘. 
+
+当按键松开时, 七段数码管的低四位全灭. 
+
+七段数码管的高两位显示按键的总次数. 按住不放只算一次按键. 只考虑顺序按下和放开的情况, 不考虑同时按多个键的情况. 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Easter eggs
@@ -241,4 +319,12 @@ lab6
 说着, 他就挪了一个地方, 睡鼠紧随其后, 三月兔就挪到了睡鼠的位子上, 爱丽丝也只好很不情愿地坐到了三月兔的位子上. 这次挪动唯一得到好位子的是帽匠, 爱丽丝的位子比以前差了, 因为刚才三月兔把牛奶打翻在位子上了.
 
 — 《爱丽丝漫游奇境记》 刘易斯·卡罗尔
+```
+
+
+lab7
+```
+We know the state of the system if we know the sequence of symbols on the tape, which of these are observed by the computer (possibly with a special order), and the state of mind of the computer.
+
+—"On Computable Numbers, with an Application to the Entscheidungsproblem", A. M. Turing
 ```
