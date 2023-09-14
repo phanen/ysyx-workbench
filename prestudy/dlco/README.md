@@ -152,9 +152,53 @@ assign Overflow = (A[n-1] == t_add_Cin[n-1]) && (Result [n-1] != A[n-1]);
 ![img:lab3-alu](https://i.imgur.com/Y65xC9k.png)
 
 
+## lab6 移位寄存器及桶形寄存器
+
+```verilog
+Q <= {Q[0],Q[7:1]}; // rot right
+Q <= {Q[7],Q[7:1]}; // arith right
+```
 
 
-## lab6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

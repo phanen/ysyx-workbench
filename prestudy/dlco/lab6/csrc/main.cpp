@@ -1,8 +1,8 @@
 #include "Vtop.h"
 #include "verilated.h"
 #include "verilated_vcd_c.h"
-#include <nvboard.h>
 #include <iostream>
+#include <nvboard.h>
 
 void nvboard_bind_all_pins(Vtop *top);
 
@@ -16,6 +16,14 @@ void step_and_dump_wave() {
   contextp->timeInc(1);
   tfp->dump(contextp->time());
 }
+
+void single_cycle() {
+  top->clk = 0;
+  top->eval();
+  top->clk = 1;
+  top->eval();
+}
+
 void sim_init() {
   contextp = new VerilatedContext;
   tfp = new VerilatedVcdC;
@@ -38,8 +46,8 @@ int main() {
 
   while (1) {
     // std::cout << "loop" << std::endl;
-    top->eval();
     nvboard_update();
+    single_cycle();
   }
   sim_exit();
 }
