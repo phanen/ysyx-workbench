@@ -190,22 +190,25 @@ endmodule
 
 
 桶形移位器
+- <https://en.wikipedia.org/wiki/Barrel_shifter>
+- A barrel shifter is often used to shift and rotate n-bits in modern microprocessors, typically within a single clock cycle
 
+二选一实现单向移位 (arith/logic)
+```
+ int1  = IN       , if S[2] == 0
+       = IN   << 4, if S[2] == 1
+ int2  = int1     , if S[1] == 0
+       = int1 << 2, if S[1] == 1
+ OUT   = int2     , if S[0] == 0
+       = int2 << 1, if S[0] == 1
+```
 
+四选一双向移位 (arith/logic)
+![img:mux41](https://i.imgur.com/FOmfUd0.png)
 
 ### 利用移位寄存器实现伪随机数发生器
 
 ![img:lfsr](https://i.imgur.com/PJ8cDAr.png)
-
-
-
-
-
-
-
-
-
-
 
 
 

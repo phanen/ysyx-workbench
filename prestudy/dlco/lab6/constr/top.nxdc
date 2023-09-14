@@ -1,6 +1,14 @@
 top=top
 
-x (LD7, LD6, LD5, LD4, LD3, LD2, LD1, LD0)
+o (LD7, LD6, LD5, LD4, LD3, LD2, LD1, LD0)
+i (SW7, SW6, SW5, SW4, SW3, SW2, SW1, SW0)
+shamt (SW10, SW9, SW8)
+lr SW11
+al SW12
+
+
+# lfsr
+# x (LD7, LD6, LD5, LD4, LD3, LD2, LD1, LD0)
 
 # naive shifter
 # dout (LD7, LD6, LD5, LD4, LD3, LD2, LD1, LD0)

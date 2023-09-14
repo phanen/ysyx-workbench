@@ -18,9 +18,10 @@ void step_and_dump_wave() {
 }
 
 void single_cycle() {
-  top->clk = 0;
-  top->eval();
-  top->clk = 1;
+  // top->clk = 0;
+  // top->eval();
+  // top->clk = 1;
+  // top->eval();
   top->eval();
 }
 

@@ -49,6 +49,8 @@ run: $(BIN)
 
 wave: run
 	$(WAVEVIEW) $(WAVE)
+	# change wave file name in `main.cpp`
+	# rg \"wave.vcd\"  --files-with-matches | xargs sed -i 's/"wave.vcd"/"build\/wave.vcd"/g' 
 
 clean:
 	rm -rf $(BUILD_DIR)
