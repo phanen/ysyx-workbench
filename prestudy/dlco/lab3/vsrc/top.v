@@ -80,6 +80,7 @@ assign o_cf = c1 | c2;
 assign o_of = (i_a[3] == i_b[3]) && (o_s[3] != i_a[3]);
 endmodule
 
+// subtractoin with carry
 module suber_4bit(
   output [3:0] o_s,
   output o_cf,
@@ -88,13 +89,22 @@ module suber_4bit(
   input [3:0] i_b
 );
 
-adder_4bit adder(
+wire [3:0] s1;
+
+adder_4bit adder1(
+   .o_s(s1),
+   .i_a(~i_b),
+   .i_b(4'b0001),
+   .i_c(0)
+);
+
+adder_4bit adder2(
    .o_s(o_s),
    .o_cf(o_cf),
    .o_of(o_of),
-   .i_a(i_a),
-   .i_b(~i_b),
-   .i_c(1'b1)
+   .i_a(s1),
+   .i_b(i_a),
+   .i_c(0)
 );
 endmodule
 
@@ -122,4 +132,3 @@ suber_4bit suber(
 assign o_s = {3'b0, sub_out[3] ^ sub_of};
 
 endmodule
-

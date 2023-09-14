@@ -128,28 +128,24 @@ module suber_4bit (
 endmodule
 ```
 
-carry flag
-- <https://en.wikipedia.org/wiki/Carry_flag>
-- 进位后,
--
-
 e.g. 11111111 + 11111111 results in 111111110
 - Carry_Flag set
 - Sign_Flag set
 - Overflow_Flag clear
 
 
-suber
+suber 的 b 要先取反再 + 1, 不然 cf 有问题
+- <https://en.wikipedia.org/wiki/Carry_flag>
+- 这里用 subtraction with carry
 ```verilog
+// 0 - 0 -> 0 + ((15 + 1) % 16)
+
+// 15 - 1 -> 15 + ((14 + 1) % 16)
+// 1 - 1 -> 1 + ((15 + 1) % 16)
 assign t_add_Cin =( {n{Cin}}^B )+ Cin;
 assign { Carry, Result } = A + t_add_Cin;
 assign Overflow = (A[n-1] == t_add_Cin[n-1]) && (Result [n-1] != A[n-1]);
 ```
-
-
-
-
-
 
 
 ## Easter eggs
