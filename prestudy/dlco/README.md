@@ -147,6 +147,17 @@ assign { Carry, Result } = A + t_add_Cin;
 assign Overflow = (A[n-1] == t_add_Cin[n-1]) && (Result [n-1] != A[n-1]);
 ```
 
+### 实现一个带有逻辑运算的简单 ALU
+
+![img:lab3-alu](https://i.imgur.com/Y65xC9k.png)
+
+
+
+
+## lab6
+
+
+
 
 ## Easter eggs
 
@@ -168,4 +179,13 @@ lab3
 "That’s it. That’s all there is."
 "I always thought something was fundamentally wrong with the universe."
 — "The Restaurant at the End of the Universe",  Douglas Adams
+```
+
+lab6
+```
+"我想要只干净的茶杯, "帽匠插嘴说, "咱们全部挪动一下位子吧!
+
+说着, 他就挪了一个地方, 睡鼠紧随其后, 三月兔就挪到了睡鼠的位子上, 爱丽丝也只好很不情愿地坐到了三月兔的位子上. 这次挪动唯一得到好位子的是帽匠, 爱丽丝的位子比以前差了, 因为刚才三月兔把牛奶打翻在位子上了.
+
+— 《爱丽丝漫游奇境记》 刘易斯·卡罗尔
 ```
