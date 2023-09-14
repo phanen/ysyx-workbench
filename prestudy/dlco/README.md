@@ -154,42 +154,48 @@ assign Overflow = (A[n-1] == t_add_Cin[n-1]) && (Result [n-1] != A[n-1]);
 
 ## lab6 移位寄存器及桶形寄存器
 
+移位寄存器
 ```verilog
 Q <= {Q[0],Q[7:1]}; // rot right
 Q <= {Q[7],Q[7:1]}; // arith right
 ```
 
+降频
+```verilog
+always@(posedge clk) begin
+  if (count == 0) begin
+    // do something
+  end
+  count <= (count >= 5000000 ? 32'b0 : count + 1);
+end
+```
+```verilog
+module slower(
+  output reg o_clk,
+  input i_clk
+);
+
+reg [31:0] count;
+always@(i_clk) begin
+  if (count == 0) begin
+    case(o_clk)
+      1'b0: o_clk = 1'b1;
+      1'b1: o_clk = 1'b0;
+    endcase
+  end
+  count <= (count >= 5000000)? 32'b0: count + 1;
+end
+endmodule
+```
+
+
+桶形移位器
 
 
 
+### 利用移位寄存器实现伪随机数发生器
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![img:lfsr](https://i.imgur.com/PJ8cDAr.png)
 
 
 
